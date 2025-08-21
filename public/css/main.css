@@ -248,10 +248,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 hr {
   border: 0;
   height: 1px;
@@ -343,7 +339,6 @@ nav a.active {
 }
 
 .btn-outline:hover {
-  background: var(--elev);
   border-color: var(--accent);
 }
 
