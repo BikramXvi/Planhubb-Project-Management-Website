@@ -11,8 +11,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <style>
+    
     /* Hero Section */
     .hero {
       display: flex;
@@ -43,13 +44,13 @@
     }
 
     .hero p {
-      font-size: 1.2rem;
-      color: #63c7d4;
+      font-size: 1.4rem;
+      color: #5d99a1;
       max-width: 600px;
       margin-bottom: 2rem;
-      font-family: sans-serif;
-      font-weight: 400; 
-      font-style: normal;
+      font-family: "Dancing Script", cursive;
+      font-optical-sizing: auto;
+      font-style:normal;
       text-align: left;
     }
     .hero button {
@@ -94,6 +95,7 @@
       margin: 0 auto 1.5rem;
       text-align: center;
       color: var(--text);
+      font-family: "Libertinus Sans", sans-serif;
     }
 
     /* About/Features Grid */
@@ -148,19 +150,7 @@
       cursor: pointer;
     }
 
-    /* Footer */
-    footer {
-      background: var(--surface);
-      padding: 2rem;
-      text-align: center;
-      color: var(--muted);
-      margin-top: 4rem;
-    }
-
-    footer a {
-      color: var(--accent);
-      margin: 0 0.5rem;
-    }
+    
   </style>
 </head>
 
@@ -193,10 +183,10 @@
 
       <!-- Hero Text -->
       <div style="flex: 1; padding-left: 150px;">
-        <h1>Manage Projects Smarter with Planhubb</h1>
+        <h1>Manage Projects <br> <span style="color:var(--warn)">Smarter</span> with Planhubb</h1>
         <p>Track tasks, collaborate with your team, and stay organized. Planhubb makes project management simple,
           efficient, and visually appealing.</p>
-        <button class="btn"><a href="auth/login.html">Get Started</a> </button>
+        <button class="btn" style="display: flex; align-items: left;"><a href="auth/login.html">Get Started</a> </button>
       </div>
 
       <!-- Hero Image -->
@@ -213,21 +203,27 @@
 
 
   </div>
+
+
+
+
+  <!-- main container starts -->
+  <section id="main-container">
   <!-- About Us -->
   <section id="about">
     <h2>About Us</h2>
     <p>Planhubb is designed for teams who want a clean, intuitive, and dark-mode friendly project management tool. Stay
       on top of tasks and boost productivity.</p>
-    <div class="grid">
-      <div class="card">
+    <div class="grid block">
+      <div class="card block">
         <h3>Vision</h3>
         <p>Empower teams to collaborate seamlessly and manage projects efficiently.</p>
       </div>
-      <div class="card">
+      <div class="card block">
         <h3>Mission</h3>
         <p>Provide a simple, yet powerful project management solution for all types of teams.</p>
       </div>
-      <div class="card">
+      <div class="card block">
         <h3>Goal</h3>
         <p>Make task tracking, planning, and reporting effortless in a visually pleasing interface.</p>
       </div>
@@ -238,19 +234,19 @@
   <section id="features">
     <h2>Features</h2>
     <div class="grid">
-      <div class="card">
+      <div class="card block">
         <h3>Kanban Boards</h3>
         <p>Visualize tasks and workflow stages like Planning → To Do → In Progress → Done.</p>
       </div>
-      <div class="card">
+      <div class="card block">
         <h3>Dark Mode</h3>
         <p>All screens are optimized for a dark mode experience with accent highlights.</p>
       </div>
-      <div class="card">
+      <div class="card block">
         <h3>Team Collaboration</h3>
         <p>Assign tasks, review progress, and comment in real-time with your team.</p>
       </div>
-      <div class="card">
+      <div class="card block">
         <h3>Notifications</h3>
         <p>Stay updated on task changes, deadlines, and project milestones.</p>
       </div>
@@ -266,8 +262,11 @@
       <button class="btn btn-primary" type="submit">Subscribe</button>
     </form>
   </section>
+</section>
 
+<!-- main container ends here -->
   <!-- Footer -->
+
   <footer>
     <p>© 2025 Planhubb. All rights reserved.</p>
     <p>
