@@ -2,8 +2,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Libertinus Sans", sans-serif;
-  font-weight: 400;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
   font-style: normal;
 }
 html[data-theme="light"] {
@@ -48,7 +48,6 @@ html[data-theme="light"] {
 .select,
 .textarea {
   background: var(--surface);
-  border: 1px solid rgba(154, 155, 174, 0.35);
   /* subtle border */
   border-radius: var(--r);
   box-shadow: var(--shadow);
@@ -75,8 +74,6 @@ a {
 /* ====== Buttons (Light Mode) ====== */
 .btn {
   display: inline-flex;
-  align-items: center;
-  gap: .5rem;
   padding: .6rem .95rem;
   border-radius: var(--r);
   border: 1px solid transparent;
@@ -174,6 +171,18 @@ a {
   background: rgba(92, 107, 192, 0.18);
   color: var(--text);
 }
+/* main container codating */
+#main-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;  
+}
 
 body {
   background: linear-gradient(300deg, #292136, #00000c, #39194b);
@@ -248,10 +257,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 hr {
   border: 0;
   height: 1px;
@@ -265,10 +270,8 @@ hr {
 .input,
 .select,
 .textarea {
-  background: var(--surface);
-  border: 1px solid color-mix(in oklab, var(--muted) 35%, transparent);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
+  background: #171024;
+  box-shadow: 1px 1px 10px #101010;
 }
 
 .card {
@@ -304,7 +307,8 @@ nav a.active {
 /* Hover elevation */
 .card:hover
 {
-  background: var(--elev);
+  background: #24163e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
 }
 
 /* ====== Buttons ====== */
@@ -343,7 +347,6 @@ nav a.active {
 }
 
 .btn-outline:hover {
-  background: var(--elev);
   border-color: var(--accent);
 }
 
@@ -470,3 +473,102 @@ pre {
   background: var(--elev);
   border-radius: var(--r);
 }
+
+
+/* Animatin css on scroling -----------------------------------------------------------------------------------------------------*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+@keyframes appear{
+  from{
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.block {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+  padding: 0;
+}
+.block p{
+  color: #e6edf3;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 1rem;
+  margin-bottom: 2rem;
+  font-family: "Libertinus Sans", sans-serif;
+  max-width: 800px;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 400;
+
+}
+
+#about h3, #features h3{
+  background-color: #eeaa35;
+  color: #0a0f0f;
+  padding: 0.5rem 1rem;
+  border-radius: 10px 0px 20px 0px;
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+#about h2, #features h2, .card h2 {
+  text-align: center;
+  margin: 3rem 0rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+}
+#about p, #features p, .card p {
+  color: #5d99a1;
+  font-size: 1.2rem;
+  margin: 1rem;
+  margin-bottom: 4rem;
+  font-family: "Libertinus Sans", sans-serif;
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Footer */
+    footer {
+      background: #171024;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      margin-top: 4rem;
+      box-shadow: var(--shadow);
+      border-radius: 100% 100% 0 0;
+      font-weight: 100;
+    }
+
+    footer a {
+      color: var(--accent);
+      font-weight: 100;
+    
+    }
+
+    footer p{
+      margin: 0.5rem;
+    }
