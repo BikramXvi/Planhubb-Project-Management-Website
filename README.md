@@ -19,6 +19,8 @@
   <li><b>Project Boards</b> – Create and manage multiple projects</li>
   <li><b>Task Tracking</b> – Assign, update, and monitor tasks</li>
   <li><b>Modern UI</b> – Light/Dark mode with responsive design</li>
+  <li><b>Email JS Integration</b> – Dynamic Email Sending upto 200 free emails per day</li>
+  <li><b>Notification</b> – In App Dynamic Notification Feature to the Assigned Users</li>
 </ul>
 
 ---
@@ -62,8 +64,7 @@ cd Planhubb-Project-Management-Website
   <li><a href="https://github.com/BikramXvi"><b>Bikram Tamang</b></a> – Project Lead & Developer</li>
   <li><a href="https://github.com/Neha662005"><b>Neha K.C (Khatri)</b></a> – Frontend Developer</li>
   <li><a href="https://github.com/gituser-sandip"><b>Sandeep Meche</b></a> – Firebase Developer</li>
-  <li><b>Aaditya Thapaliya</b> – UI/UX Designer</li>
-  <li><b>Pranjal Acharya</b> – QA & Testing</li>
+  <li><a href="https://github.com/Aaditya-cell"><<b>Aaditya Thapaliya</b> – UI/UX Designer</li>
 </ul>
 
 ---
@@ -72,16 +73,32 @@ cd Planhubb-Project-Management-Website
 <p>*(Replace image-path-or-URL with your actual screenshots)*</p>
 
 <h3>Landing Page</h3>
-<img src="image-path-or-URL" alt="Landing Page" width="600"/>
+<img src="public/img/LandingPage.png" alt="Landing Page" width="600"/>
 
-<h3>Home Page</h3>
-<img src="image-path-or-URL" alt="Home Page" width="600"/>
+<h3>Login Page</h3>
+<img src="public/img/LoginPage.png" alt="Home Page" width="600"/>
 
-<h3>Blogs Page</h3>
-<img src="image-path-or-URL" alt="Blogs Page" width="600"/>
+<h3>Home Page (Only accessible after login)</h3>
+<img src="public/img/HomePage.png" alt="Home Page" width="600"/>
 
-<h3>Projects Page</h3>
-<img src="image-path-or-URL" alt="Projects Page" width="600"/>
+<h3>All Team Section</h3>
+<img src="public/img/AllTeam.png" alt="Blogs Page" width="600"/>
 
-<h3>Settings Page</h3>
-<img src="image-path-or-URL" alt="Settings Page" width="600"/>
+<h3>Individual Team Page</h3>
+<img src="public/img/Neha.png" alt="Blogs Page" width="600"/>
+
+<h3>Projects Page (only accessible after Login)</h3>
+<img src="public/img/Project.png" alt="Projects Page" width="600"/>
+
+<h3>Tasks Page (only accessible after Login)</h3>
+<img src="public/img/Task.png" alt="Settings Page" width="600"/>
+
+<h3>Dynamic Notification</h3>
+<img src="public/img/Notification.png" alt="Settings Page" width="600"/>
+
+<h3>emailjs - Email Integration for Project Assigned</h3>
+<img src="public/img/ProjectAssigned.png" alt="Settings Page" width="600"/>
+
+<h3>emailjs - Email Integration for Task Assigned</h3>
+<img src="public/img/TaskAssigned.png" alt="Settings Page" width="600"/>
+

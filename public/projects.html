@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planhubb - Projects</title>
   <link rel="stylesheet" href="css/main.css">
+  <script src="script.js"></script>
   <style>
     body,
     html {
@@ -222,7 +223,7 @@
   <aside class="sidebar">
     <h1 style="cursor: pointer;" onclick="window.location.href='home.html'"><img src="img/logo/logo-icon-home-icon.png" alt="Planhubb" width="70px"></h1>
     <a href="projects.html">My Projects</a>
-    <a href="teams.html">Teams</a>
+    <a href="./planhubbTeams/teams.html">Teams</a>
     <a href="calendar.html">Calendar</a>
     <a href="settings.html">Settings</a>
   </aside>
@@ -238,7 +239,7 @@
       <div class="modal-content">
         <span id="closeModal" class="close">&times;</span>
         <h2>Create / Edit Project</h2>
-        <form id="createProjectForm">
+        <form id="createProjectForm" onsubmit="sendProjectAssignedMail(event)">
           <div class="form-group">
             <label for="projectName">Project Name</label>
             <input type="text" id="projectName" class="form-control" placeholder="Project Name" required>
@@ -277,6 +278,18 @@
       <p><a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Contact</a></p>
     </footer>
   </div>
+
+  <!-- EmailJS -->
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "TU_jBfFsk5CG4vGBd",
+      });
+   })();
+</script>
 
   <script type="module">
     import { auth } from "./js/firebase/config.js";

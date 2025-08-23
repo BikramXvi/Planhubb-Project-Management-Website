@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planhubb - Teams</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="./teams.css">
+</head>
+
+<body>
+  <aside class="sidebar">
+    <h1 style="cursor:pointer;" onclick="window.location.href='home.html'">
+      <img src="../img/logo/logo-icon-home-icon.png" alt="Planhubb" width="70px">
+    </h1>
+    <a href="../projects.html">My Projects</a>
+    <a href="teams.html">Teams</a>
+    <a href="../calendar.html">Calendar</a>
+    <a href="../settings.html">Settings</a>
+  </aside>
+
+  <div class="main">
+    <div class="main-header">
+      <h2>Teams</h2>
+      <button id="newTeamBtn" class="btn btn-primary">+ New Team</button>
+    </div>
+
+    <div class="teams-grid"></div>
+
+    <footer>
+      <p>© 2025 Planhubb. All rights reserved.</p>
+      <p><a href="../privacy.html">Privacy</a> | <a href="../terms.html">Terms</a> | <a href="../contact.html">Contact</a></p>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="teamModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Create / Edit Team</h2>
+      <form id="createTeamForm">
+        <div class="form-group">
+          <label for="teamName">Team Name</label>
+          <input type="text" id="teamName" class="form-control" required>
+        </div>
+        <div class="form-group" id="membersContainer">
+          <label>Members</label>
+        </div>
+        <button type="button" id="addMemberBtn" class="btn btn-primary mt-2">+ Add Member</button>
+        <button type="submit" class="btn btn-primary mt-2">Save Team</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./teams.js"></script>
+</body>
+</html>

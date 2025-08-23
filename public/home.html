@@ -9,207 +9,240 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <style>
-    /* Hero/Dashboard Section */
-    .dashboard-hero {
+    /* Dashboard CSS unchanged */
+    .dashboard-hero { display: flex; justify-content: space-between; align-items: center; padding: 3rem 2rem; box-shadow: var(--shadow); margin: 2rem; }
+    .dashboard-hero h1 { font-size: 4.5rem; color: var(--accent); font-family: "Dancing Script", cursive; font-optical-sizing: auto; font-style:normal; text-align: center; }
+    .dashboard-hero p { font-size: 1.3rem; color: #63c7d4; max-width: 600px; margin-top: 1rem; font-weight: 400; font-style: normal; text-align: center; line-height: 1.5; font-family: "Libertinus Sans", sans-serif; font-weight: 400; font-style: normal; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding: 2rem; }
+    .card { padding: 2rem; transition: transform 0.2s ease; cursor: pointer; text-align: center; }
+    .card button { margin-top: 1rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
+    #logout-btn:hover { background-color: var(--accent-contrast); color: #0a0f0f; outline: none; }
+    .notif-btn { position: relative; cursor: pointer; font-size: 1.2rem; background: none; border: none; }
+    .notif-count { position: absolute; top: -5px; right: -10px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; }
+
+    /* Simple static notification panel */
+    .notif-modal {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 320px;
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      padding: 1rem;
+      z-index: 2000;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 3rem 2rem;
-      box-shadow: var(--shadow);
-      margin: 2rem;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow: hidden;
     }
-    .dashboard-hero h1 {
-      font-size: 4.5rem;
-      color: var(--accent);
-      font-family: "Dancing Script", cursive;
-      font-optical-sizing: auto;
-      font-style:normal;
-      text-align: center;
-    }
-    .dashboard-hero p {
-      font-size: 1.3rem;
-      color: #63c7d4;
-      max-width: 600px;
-      margin-top: 1rem;
-      font-weight: 400;
-      font-style: normal;
-      text-align: center;
-      line-height: 1.5;
-      font-family: "Libertinus Sans", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-        /* Cards for projects */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .card {
-      padding: 2rem;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-      text-align: center;
-    }
-   
-    
-    .card button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
+    .notif-modal.hidden { display: none; }
+
+    .notif-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .notif-item {
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       cursor: pointer;
     }
-    #logout-btn:hover {
-      background-color: var(--accent-contrast);
-      color: #0a0f0f;
-      outline: none;
-    }
+
+    .notif-item:hover { background: var(--elev); }
+    .notif-title { font-weight: 600; }
+    .notif-time { font-size: 0.75rem; color: var(--muted); }
   </style>
 </head>
 <body style="visibility:hidden">
 
-  <!-- Navbar After Login -->
+  <!-- Navbar -->
   <nav class="nav" style="display:flex; justify-content:space-between; align-items:center; padding:0rem 2rem;">
     <h1 class="accent"><img src="img/logo/logo-icon-home-icon.png" alt="logo" width="70px"></h1>
     <div style="display:flex; gap:1rem; align-items:center;">
+      <div class="notification-wrapper">
+        <button id="notifBtn" class="notif-btn">
+          🔔 <span class="notif-count" id="notifCount">0</span>
+        </button>
+
+        <!-- Notification modal -->
+        <div id="notifModal" class="notif-modal hidden">
+          <h3>Notifications</h3>
+          <div id="notifList" class="notif-list">
+            <!-- Notifications injected dynamically -->
+          </div>
+        </div>
+      </div>
       <a href="projects.html">Projects</a>
-      <a href="#">Teams</a>
+      <a href="./planhubbTeams/teams.html">Teams</a>
       <a href="settings.html">Settings</a>
       <button id="logout-btn" class="btn btn-outline">Logout</button>
     </div>
   </nav>
 
   <!-- Dashboard Hero -->
-   
   <section class="dashboard-hero" style="padding: 0px 40px;">
     <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; max-width: 100%; margin: auto;">
-      <!-- Hero Text -->
       <div style="flex: 1; padding-left: 150px;">
         <h1>Welcome Back !</h1>
         <p>Check your ongoing projects, collaborate with your team, and stay on top of deadlines.</p>
       </div>
-
-      <!-- Hero Image -->
       <div style="flex: 1;">
         <img src="img/logo/logo.gif" alt="Project Management" style="max-width: 100%; height: auto;">
       </div>
-      <div class="image-showcase">
-
-      </div>
-  </section>
-
-  <!-- main section  -->
-   <section id="main-container">
-  <!-- Your Projects Section -->
-  <section id="projects">
-    <h2 style="text-align:center; margin-top:2rem;">Your Projects</h2>
-    <div id="projects-grid" class="grid block">
-      <!-- Project cards injected here dynamically -->
     </div>
   </section>
 
-  <!-- Teams Section -->
-  <section id="teams">
-    <h2 style="text-align:center; margin-top:2rem;">Our Teams</h2>
-    <div class="grid">
-      <div class="card block">
-        <h3>Frontend Team</h3>
-        <p>Handles UI, design, and user experience.</p>
+  <!-- Main Section -->
+  <section id="main-container">
+    <section id="projects">
+      <h2 style="text-align:center; margin-top:2rem;">Your Projects</h2>
+      <div id="projects-grid" class="grid block"></div>
+    </section>
+    <section id="teams">
+      <h2 style="text-align:center; margin-top:2rem;">Our Teams</h2>
+      <div class="grid">
+        <div class="card block"><h3>Frontend Team</h3><p>Handles UI, design, and user experience.</p></div>
+        <div class="card block"><h3>Backend Team</h3><p>Manages servers, databases, and APIs.</p></div>
+        <div class="card block"><h3>QA Team</h3><p>Tests features, ensures quality, and reports bugs.</p></div>
       </div>
-      <div class="card block">
-        <h3>Backend Team</h3>
-        <p>Manages servers, databases, and APIs.</p>
-      </div>
-      <div class="card block">
-        <h3>QA Team</h3>
-        <p>Tests features, ensures quality, and reports bugs.</p>
-      </div>
-    </div>
+    </section>
   </section>
-  </section>
-  <!-- main section ends here-->
+
   <!-- Footer -->
   <footer>
     <p>© 2025 Planhubb. All rights reserved.</p>
-    <p>
-      <a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Contact</a>
-    </p>
+    <p><a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="contact.html">Contact</a></p>
   </footer>
 
   <script type="module">
-    import { auth } from "./js/firebase/config.js";
-    import { protectPage } from "./js/firebase/authGuard.js";
-    import { logout } from "./js/firebase/authUtils.js";
-    import { getUserProjects } from "./js/firebase/firestore.js";
+  import { auth } from "./js/firebase/config.js";
+  import { protectPage } from "./js/firebase/authGuard.js";
+  import { logout } from "./js/firebase/authUtils.js";
+  import { getUserProjects } from "./js/firebase/firestore.js";
+  import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
-    const projectsGrid = document.getElementById("projects-grid");
+  const projectsGrid = document.getElementById("projects-grid");
+  const notifBtn = document.getElementById("notifBtn");
+  const notifModal = document.getElementById("notifModal");
+  const notifList = document.getElementById("notifList");
+  const notifCount = document.getElementById("notifCount");
 
-    // Protect page
-    protectPage();
+  let notifications = [];
 
-    // Logout
-    document.getElementById("logout-btn").addEventListener("click", () => logout());
+  protectPage();
+  document.getElementById("logout-btn").addEventListener("click", () => logout());
 
-    // Render a project card
-    function renderProjectCard(proj) {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.id = proj.id;
-      card.innerHTML = `
-        <h3>${proj.name}</h3>
-        <p>Status: ${proj.status}</p>
-        <p>Deadline: ${proj.deadline || "-"}</p>
-      `;
-      card.addEventListener("click", () => {
-        localStorage.setItem("selectedProjectId", proj.id);
+  // Render project cards
+  function renderProjectCard(proj) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.id = proj.id;
+    card.innerHTML = `<h3>${proj.name}</h3><p>Status: ${proj.status}</p><p>Deadline: ${proj.deadline || "-"}</p>`;
+    card.addEventListener("click", () => {
+      localStorage.setItem("selectedProjectId", proj.id);
+      window.location.href = "kanban.html";
+    });
+    projectsGrid.appendChild(card);
+  }
+
+  // Render create project card
+  function renderCreateProjectCard() {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<h3>Create New Project</h3><p>Click below to start a new project.</p><button class="btn btn-primary" id="createProjectBtn">Create</button>`;
+    projectsGrid.appendChild(card);
+    document.getElementById("createProjectBtn").addEventListener("click", () => {
+      localStorage.setItem("openProjectModal", "true");
+      window.location.href = "projects.html";
+    });
+  }
+
+  // Load user projects
+  async function loadProjects() {
+    if (!auth.currentUser) return;
+    try {
+      const projects = await getUserProjects();
+      projectsGrid.innerHTML = "";
+      if (!projects.length) { renderCreateProjectCard(); }
+      else { projects.forEach(renderProjectCard); renderCreateProjectCard(); }
+    } catch (err) {
+      console.error("Error fetching projects:", err);
+      projectsGrid.innerHTML = `<p style="color:red; text-align:center;">Failed to load projects.</p>`;
+    }
+  }
+
+  // Toggle notification panel
+  notifBtn.addEventListener("click", () => notifModal.classList.toggle("hidden"));
+
+  // Add a notification to the panel
+  function addNotification(n) {
+    notifications.unshift(n);
+    if (notifications.length > 5) notifications.pop(); // keep latest 5
+    renderNotifications();
+  }
+
+  // Render notifications
+  function renderNotifications() {
+    notifList.innerHTML = "";
+    if (!notifications.length) {
+      notifList.innerHTML = "<div class='notif-item'><div class='notif-title'>No notifications</div></div>";
+      notifCount.textContent = 0;
+      return;
+    }
+    notifCount.textContent = notifications.length;
+
+    notifications.forEach(n => {
+      const item = document.createElement("div");
+      item.className = "notif-item";
+
+      const title = n.title || (n.type==="task" ? `Task: ${n.title}` : `Project: ${n.name}`);
+      const date = n.createdAt ? new Date(n.createdAt.seconds*1000).toLocaleString() : "";
+
+      item.innerHTML = `<div class='notif-title'>${title}</div><div class='notif-time'>${date}</div>`;
+
+      // Click behavior
+      item.addEventListener("click", () => {
+        localStorage.setItem("selectedProjectId", n.projectId);
         window.location.href = "kanban.html";
       });
-      projectsGrid.appendChild(card);
-    }
 
-    // Render "Create New Project" card
-    function renderCreateProjectCard() {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>Create New Project</h3>
-        <p>Click below to start a new project.</p>
-        <button class="btn btn-primary" id="createProjectBtn">Create</button>
-      `;
-      projectsGrid.appendChild(card);
-
-      document.getElementById("createProjectBtn").addEventListener("click", () => {
-        localStorage.setItem("openProjectModal", "true");
-        window.location.href = "projects.html";
-      });
-    }
-
-    // Load projects
-    async function loadProjects() {
-      if (!auth.currentUser) return;
-      try {
-        const projects = await getUserProjects();
-        projectsGrid.innerHTML = "";
-
-        if (!projects.length) {
-          renderCreateProjectCard();
-        } else {
-          projects.forEach(renderProjectCard);
-          renderCreateProjectCard(); // always show "create" card at end
-        }
-      } catch (err) {
-        console.error("Error fetching projects:", err);
-        projectsGrid.innerHTML = `<p style="color:red; text-align:center;">Failed to load projects.</p>`;
-      }
-    }
-
-    // Show page after auth check
-    auth.onAuthStateChanged(user => {
-      if (!user) return;
-      document.body.style.visibility = "visible";
-      loadProjects();
+      notifList.appendChild(item);
     });
+  }
+
+
+  // Listen for user projects and notifications
+  auth.onAuthStateChanged(user => {
+    if (!user) return;
+    document.body.style.visibility = "visible";
+    loadProjects();
+
+    const db = getFirestore();
+    const userUid = user.uid;
+
+    // Listen to projects the user is part of
+    const projectsQuery = query(collection(db, "projects"), where("team", "array-contains", userUid));
+    onSnapshot(projectsQuery, snapshot => {
+      snapshot.docs.forEach(projDoc => {
+        const projectId = projDoc.id;
+
+        // Listen to notifications for this user in each project
+        const notifQuery = query(
+          collection(db, "projects", projectId, "notifications"),
+          where("userIds", "array-contains", userUid)
+        );
+
+        onSnapshot(notifQuery, notifSnap => {
+          notifSnap.docs.forEach(doc => {
+            const n = { ...doc.data(), id: doc.id, projectId };
+            addNotification(n);
+          });
+        });
+      });
+    });
+  });
   </script>
+
 </body>
 </html>
