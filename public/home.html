@@ -115,134 +115,134 @@
     <p><a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="contact.html">Contact</a></p>
   </footer>
 
-<script type="module">
-import { auth } from "./js/firebase/config.js";
-import { protectPage } from "./js/firebase/authGuard.js";
-import { logout } from "./js/firebase/authUtils.js";
-import { getUserProjects } from "./js/firebase/firestore.js";
-import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+  <script type="module">
+  import { auth } from "./js/firebase/config.js";
+  import { protectPage } from "./js/firebase/authGuard.js";
+  import { logout } from "./js/firebase/authUtils.js";
+  import { getUserProjects } from "./js/firebase/firestore.js";
+  import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
-const projectsGrid = document.getElementById("projects-grid");
-const notifBtn = document.getElementById("notifBtn");
-const notifModal = document.getElementById("notifModal");
-const notifList = document.getElementById("notifList");
-const notifCount = document.getElementById("notifCount");
+  const projectsGrid = document.getElementById("projects-grid");
+  const notifBtn = document.getElementById("notifBtn");
+  const notifModal = document.getElementById("notifModal");
+  const notifList = document.getElementById("notifList");
+  const notifCount = document.getElementById("notifCount");
 
-let notifications = [];
+  let notifications = [];
 
-protectPage();
-document.getElementById("logout-btn").addEventListener("click", () => logout());
+  protectPage();
+  document.getElementById("logout-btn").addEventListener("click", () => logout());
 
-// Render project cards
-function renderProjectCard(proj) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.dataset.id = proj.id;
-  card.innerHTML = `<h3>${proj.name}</h3><p>Status: ${proj.status}</p><p>Deadline: ${proj.deadline || "-"}</p>`;
-  card.addEventListener("click", () => {
-    localStorage.setItem("selectedProjectId", proj.id);
-    window.location.href = "kanban.html";
-  });
-  projectsGrid.appendChild(card);
-}
-
-// Render create project card
-function renderCreateProjectCard() {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `<h3>Create New Project</h3><p>Click below to start a new project.</p><button class="btn btn-primary" id="createProjectBtn">Create</button>`;
-  projectsGrid.appendChild(card);
-  document.getElementById("createProjectBtn").addEventListener("click", () => {
-    localStorage.setItem("openProjectModal", "true");
-    window.location.href = "projects.html";
-  });
-}
-
-// Load user projects
-async function loadProjects() {
-  if (!auth.currentUser) return;
-  try {
-    const projects = await getUserProjects();
-    projectsGrid.innerHTML = "";
-    if (!projects.length) { renderCreateProjectCard(); }
-    else { projects.forEach(renderProjectCard); renderCreateProjectCard(); }
-  } catch (err) {
-    console.error("Error fetching projects:", err);
-    projectsGrid.innerHTML = `<p style="color:red; text-align:center;">Failed to load projects.</p>`;
-  }
-}
-
-// Toggle notification panel
-notifBtn.addEventListener("click", () => notifModal.classList.toggle("hidden"));
-
-// Add a notification to the panel
-function addNotification(n) {
-  notifications.unshift(n);
-  if (notifications.length > 5) notifications.pop(); // keep latest 5
-  renderNotifications();
-}
-
-// Render notifications
-function renderNotifications() {
-  notifList.innerHTML = "";
-  if (!notifications.length) {
-    notifList.innerHTML = "<div class='notif-item'><div class='notif-title'>No notifications</div></div>";
-    notifCount.textContent = 0;
-    return;
-  }
-  notifCount.textContent = notifications.length;
-
-  notifications.forEach(n => {
-    const item = document.createElement("div");
-    item.className = "notif-item";
-
-    const title = n.title || (n.type==="task" ? `Task: ${n.title}` : `Project: ${n.name}`);
-    const date = n.createdAt ? new Date(n.createdAt.seconds*1000).toLocaleString() : "";
-
-    item.innerHTML = `<div class='notif-title'>${title}</div><div class='notif-time'>${date}</div>`;
-
-    // Click behavior
-    item.addEventListener("click", () => {
-      localStorage.setItem("selectedProjectId", n.projectId);
+  // Render project cards
+  function renderProjectCard(proj) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.id = proj.id;
+    card.innerHTML = `<h3>${proj.name}</h3><p>Status: ${proj.status}</p><p>Deadline: ${proj.deadline || "-"}</p>`;
+    card.addEventListener("click", () => {
+      localStorage.setItem("selectedProjectId", proj.id);
       window.location.href = "kanban.html";
     });
+    projectsGrid.appendChild(card);
+  }
 
-    notifList.appendChild(item);
-  });
-}
+  // Render create project card
+  function renderCreateProjectCard() {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<h3>Create New Project</h3><p>Click below to start a new project.</p><button class="btn btn-primary" id="createProjectBtn">Create</button>`;
+    projectsGrid.appendChild(card);
+    document.getElementById("createProjectBtn").addEventListener("click", () => {
+      localStorage.setItem("openProjectModal", "true");
+      window.location.href = "projects.html";
+    });
+  }
+
+  // Load user projects
+  async function loadProjects() {
+    if (!auth.currentUser) return;
+    try {
+      const projects = await getUserProjects();
+      projectsGrid.innerHTML = "";
+      if (!projects.length) { renderCreateProjectCard(); }
+      else { projects.forEach(renderProjectCard); renderCreateProjectCard(); }
+    } catch (err) {
+      console.error("Error fetching projects:", err);
+      projectsGrid.innerHTML = `<p style="color:red; text-align:center;">Failed to load projects.</p>`;
+    }
+  }
+
+  // Toggle notification panel
+  notifBtn.addEventListener("click", () => notifModal.classList.toggle("hidden"));
+
+  // Add a notification to the panel
+  function addNotification(n) {
+    notifications.unshift(n);
+    if (notifications.length > 5) notifications.pop(); // keep latest 5
+    renderNotifications();
+  }
+
+  // Render notifications
+  function renderNotifications() {
+    notifList.innerHTML = "";
+    if (!notifications.length) {
+      notifList.innerHTML = "<div class='notif-item'><div class='notif-title'>No notifications</div></div>";
+      notifCount.textContent = 0;
+      return;
+    }
+    notifCount.textContent = notifications.length;
+
+    notifications.forEach(n => {
+      const item = document.createElement("div");
+      item.className = "notif-item";
+
+      const title = n.title || (n.type==="task" ? `Task: ${n.title}` : `Project: ${n.name}`);
+      const date = n.createdAt ? new Date(n.createdAt.seconds*1000).toLocaleString() : "";
+
+      item.innerHTML = `<div class='notif-title'>${title}</div><div class='notif-time'>${date}</div>`;
+
+      // Click behavior
+      item.addEventListener("click", () => {
+        localStorage.setItem("selectedProjectId", n.projectId);
+        window.location.href = "kanban.html";
+      });
+
+      notifList.appendChild(item);
+    });
+  }
 
 
-// Listen for user projects and notifications
-auth.onAuthStateChanged(user => {
-  if (!user) return;
-  document.body.style.visibility = "visible";
-  loadProjects();
+  // Listen for user projects and notifications
+  auth.onAuthStateChanged(user => {
+    if (!user) return;
+    document.body.style.visibility = "visible";
+    loadProjects();
 
-  const db = getFirestore();
-  const userUid = user.uid;
+    const db = getFirestore();
+    const userUid = user.uid;
 
-  // Listen to projects the user is part of
-  const projectsQuery = query(collection(db, "projects"), where("team", "array-contains", userUid));
-  onSnapshot(projectsQuery, snapshot => {
-    snapshot.docs.forEach(projDoc => {
-      const projectId = projDoc.id;
+    // Listen to projects the user is part of
+    const projectsQuery = query(collection(db, "projects"), where("team", "array-contains", userUid));
+    onSnapshot(projectsQuery, snapshot => {
+      snapshot.docs.forEach(projDoc => {
+        const projectId = projDoc.id;
 
-      // Listen to notifications for this user in each project
-      const notifQuery = query(
-        collection(db, "projects", projectId, "notifications"),
-        where("userIds", "array-contains", userUid)
-      );
+        // Listen to notifications for this user in each project
+        const notifQuery = query(
+          collection(db, "projects", projectId, "notifications"),
+          where("userIds", "array-contains", userUid)
+        );
 
-      onSnapshot(notifQuery, notifSnap => {
-        notifSnap.docs.forEach(doc => {
-          const n = { ...doc.data(), id: doc.id, projectId };
-          addNotification(n);
+        onSnapshot(notifQuery, notifSnap => {
+          notifSnap.docs.forEach(doc => {
+            const n = { ...doc.data(), id: doc.id, projectId };
+            addNotification(n);
+          });
         });
       });
     });
   });
-});
-</script>
+  </script>
 
 </body>
 </html>
