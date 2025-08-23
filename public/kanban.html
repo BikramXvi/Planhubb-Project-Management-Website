@@ -5,46 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Planhubb - Kanban</title>
 <link rel="stylesheet" href="css/main.css">
+<script src="script.js"></script>
 <style>
-body, html { margin:0; font-family: system-ui, sans-serif; height: 100%; display: flex; }
-.sidebar { width: 250px; background: var(--surface); border-right:1px solid color-mix(in oklab,var(--muted) 35%,transparent); display: flex; flex-direction: column; padding: 2rem 1rem; gap:1.5rem; }
-.sidebar h1{ color: var(--accent); margin-bottom:2rem; }
-.sidebar a{ color: var(--text); text-decoration:none; display:block; padding:0.5rem; border-radius:var(--r); }
+/* ------------------ Your CSS (unchanged) ------------------ */
+body, html { margin:0; font-family: system-ui, sans-serif; height: 100%; display: flex; background: var(--bg); color: var(--text); }
+
+.sidebar { 
+  width: 250px; 
+  background: var(--surface); 
+  border-right:1px solid color-mix(in oklab,var(--muted) 35%,transparent); 
+  display: flex; flex-direction: column; 
+  padding: 2rem 1rem; gap:1.5rem; 
+}
+.sidebar h1{ color: var(--accent); margin-bottom:2rem; font-size:1.8rem; }
+.sidebar a{ color: var(--text); text-decoration:none; display:block; padding:0.5rem; border-radius:var(--r); font-size:1rem;}
 .sidebar a:hover{ background: var(--elev); color: var(--accent); }
 
 .main { flex:1; display:flex; flex-direction:column; padding:2rem; gap:2rem; background:var(--bg); overflow-y:auto; }
 .kanban-header { display:flex; justify-content: space-between; align-items:center; }
-.kanban-header h2 { color: var(--accent); }
+.kanban-header h2 { color: var(--accent); font-size:1.6rem; }
 
 .kanban-columns { display:flex; gap:1rem; overflow-x:auto; }
-.kanban-column { background: var(--surface); flex:1; min-width:250px; border-radius:var(--r); padding:1rem; display:flex; flex-direction:column; }
-.kanban-column h3 { margin-top:0; color: var(--accent); }
+.kanban-column { background: var(--surface); flex:1; min-width:250px; border-radius:var(--r); padding:1rem; display:flex; flex-direction:column; box-shadow: 0 2px 6px rgba(0,0,0,0.2);}
+.kanban-column h3 { margin-top:0; color: var(--accent); font-size:1.2rem; margin-bottom:0.8rem; }
 
-.task-card { background: var(--elev); padding:0.5rem; border-radius: var(--r); margin-bottom:0.5rem; cursor: grab; }
+.task-card { 
+  background: var(--elev); 
+  padding:1rem; 
+  border-radius: var(--r); 
+  margin-bottom:0.8rem; 
+  cursor: grab; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+.task-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
 
-.task-actions { display:flex; gap:0.3rem; margin-top:0.5rem; }
+.task-card h4 { margin:0 0 0.4rem 0; font-size:1rem; color: var(--accent);}
+.task-card p { margin:0.2rem 0; font-size:0.9rem; color: var(--text); }
 
-.modal { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:1000; }
-.modal-content { background:var(--surface); padding:1.5rem; border-radius:var(--r); width:90%; max-width:400px; }
-.close { float:right; cursor:pointer; font-size:1.5rem; }
-.form-group { margin-bottom:1rem; }
-.form-group label { display:block; margin-bottom:0.3rem; }
-.form-control { width:100%; padding:0.4rem; border-radius:var(--r); border:1px solid var(--muted); background:var(--bg); color:var(--text); }
-.btn { padding:0.4rem 0.7rem; border:none; border-radius:var(--r); cursor:pointer; }
+.modal { 
+  position: fixed; top:0; left:0; width:100%; height:100%; 
+  background: rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; z-index:1000; 
+}
+.modal-content { 
+  background:var(--surface); 
+  padding:2rem; 
+  border-radius:var(--r); 
+  width:90%; 
+  max-width:500px; 
+  max-height: 90vh;
+  overflow-y:auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+.close { float:right; cursor:pointer; font-size:1.6rem; }
+
+.form-group { margin-bottom:1rem; display:flex; flex-direction:column; }
+.form-group label { display:block; margin-bottom:0.3rem; font-weight:600; }
+.form-control { width:100%; padding:0.6rem 0.8rem; border-radius:var(--r); border:1px solid var(--muted); background:var(--bg); color:var(--text); font-size:0.95rem; }
+.form-control[readonly], .form-control:disabled { background: var(--surface); color: var(--text); cursor: default; }
+
+.btn { padding:0.5rem 0.8rem; border:none; border-radius:var(--r); cursor:pointer; font-size:0.95rem; }
 .btn-primary { background: #3b82f6; color:#fff; }
 .btn-danger { background:#ef4444; color:#fff; }
-.mt-2{ margin-top:0.5rem; }
+.btn-secondary { background:#6b7280; color:#fff; }
+.mt-2{ margin-top:0.6rem; }
+
+.task-actions { display:flex; gap:0.3rem; margin-top:0.5rem; }
 </style>
 </head>
 
 <script>
-  // Apply saved theme (default = dark)
   const savedTheme = localStorage.getItem("theme") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
 </script>
 
 <body>
-
 <aside class="sidebar">
   <h1>Planhubb</h1>
   <a href="projects.html">Back to Projects</a>
@@ -63,23 +98,27 @@ body, html { margin:0; font-family: system-ui, sans-serif; height: 100%; display
     <div class="kanban-column" data-status="done"><h3>Done</h3></div>
   </div>
 
-  <!-- Task Modal -->
+  <!-- Task Add/Edit Modal -->
   <div id="taskModal" class="modal">
     <div class="modal-content">
       <span id="closeTaskModal" class="close">&times;</span>
       <h2 id="modalTitle">Add Task</h2>
-      <form id="taskForm">
+      <form id="taskForm" onsubmit="sendTaskAssignedMail(event)">
         <div class="form-group">
           <label for="taskTitle">Title</label>
           <input type="text" id="taskTitle" class="form-control" required>
         </div>
         <div class="form-group">
           <label for="taskDescription">Description</label>
-          <textarea id="taskDescription" class="form-control"></textarea>
+          <textarea id="taskDescription" class="form-control" rows="4"></textarea>
         </div>
         <div class="form-group">
-          <label for="taskAssigned">Assigned To (comma emails/UIDs)</label>
-          <input type="text" id="taskAssigned" class="form-control">
+          <label for="taskDeadline">Deadline</label>
+          <input type="date" id="taskDeadline" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="taskAssigned">Assigned To</label>
+          <input type="text" id="taskAssigned" class="form-control" placeholder="Comma separated emails/IDs">
         </div>
         <div class="form-group">
           <label for="taskStatus">Status</label>
@@ -90,11 +129,60 @@ body, html { margin:0; font-family: system-ui, sans-serif; height: 100%; display
             <option value="done">Done</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Save Task</button>
+        <button type="submit" class="btn btn-primary mt-2" onclick=sendTaskAssignedMail()>Save Task</button>
       </form>
     </div>
   </div>
+
+  <!-- Task Details Modal -->
+  <div id="taskDetailsModal" class="modal">
+    <div class="modal-content">
+      <span id="closeTaskDetailsModal" class="close">&times;</span>
+      <h2>Task Details</h2>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="detailsTitle" class="form-control" readonly>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="detailsDescription" class="form-control" rows="4" readonly></textarea>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="detailsStatus" class="form-control" disabled>
+          <option value="todo">To Do</option>
+          <option value="inProgress">In Progress</option>
+          <option value="review">Review</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Deadline</label>
+        <input type="date" id="detailsDeadline" class="form-control" readonly>
+      </div>
+      <div class="form-group">
+        <label>Assigned</label>
+        <input type="text" id="detailsAssigned" class="form-control" readonly>
+      </div>
+      <div class="mt-2">
+        <button id="editTaskBtn" class="btn btn-secondary">Edit</button>
+        <button id="saveTaskBtn" class="btn btn-primary" style="display:none;">Save</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- EmailJS -->
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "TU_jBfFsk5CG4vGBd",
+      });
+   })();
+</script>
 
 <script type="module">
 import { addTask, onTasksChange, updateTask, deleteTask } from "./js/firebase/firestore.js";
@@ -103,6 +191,10 @@ const newTaskBtn = document.getElementById("newTaskBtn");
 const taskForm = document.getElementById("taskForm");
 const taskModal = document.getElementById("taskModal");
 const closeTaskModal = document.getElementById("closeTaskModal");
+const taskDetailsModal = document.getElementById("taskDetailsModal");
+const closeTaskDetailsModal = document.getElementById("closeTaskDetailsModal");
+const editTaskBtn = document.getElementById("editTaskBtn");
+const saveTaskBtn = document.getElementById("saveTaskBtn");
 const selectedProjectId = localStorage.getItem("selectedProjectId");
 
 const columns = {
@@ -112,108 +204,151 @@ const columns = {
   done: document.querySelector('.kanban-column[data-status="done"]'),
 };
 
-// Open/close modal
+// Open/close modals
 newTaskBtn.addEventListener("click", () => taskModal.style.display = "flex");
 closeTaskModal.addEventListener("click", () => taskModal.style.display = "none");
-window.addEventListener("click", e => { if (e.target === taskModal) taskModal.style.display = "none"; });
+closeTaskDetailsModal.addEventListener("click", () => taskDetailsModal.style.display = "none");
+window.addEventListener("click", e => {
+  if (e.target === taskModal) taskModal.style.display = "none";
+  if (e.target === taskDetailsModal) taskDetailsModal.style.display = "none";
+});
 
-// Unified submit handler for add/edit
+let currentTask = null;
+
+// Add/Edit task
 taskForm.addEventListener("submit", async e => {
-  e.preventDefault(); 
+  e.preventDefault();
   const title = document.getElementById("taskTitle").value;
   const description = document.getElementById("taskDescription").value;
   const status = document.getElementById("taskStatus").value;
   const assigned = document.getElementById("taskAssigned").value.split(",").map(u => u.trim()).filter(Boolean);
+  const deadline = document.getElementById("taskDeadline").value;
   const editId = taskForm.dataset.editId;
 
+  const taskData = { title, description, status, assigned, deadline };
+
   if (editId) {
-    await updateTask(selectedProjectId, editId, { title, description, status, assigned });
+    // Get previous assigned users before update
+    const prevTask = currentTask;
+    await updateTask(selectedProjectId, editId, taskData);
+
+    // Send emails to new users and users whose tasks changed
+    const newUsers = assigned.filter(email => !prevTask.assigned.includes(email));
+    assigned.forEach(email => {
+      window.notificationAPI.emailTaskAssigned(email, taskData);
+    });
+
     delete taskForm.dataset.editId;
   } else {
-    await addTask(selectedProjectId, { title, description, status, assigned });
+    await addTask(selectedProjectId, taskData);
   }
 
   taskModal.style.display = "none";
   taskForm.reset();
 });
 
-// Make tasks draggable
+// Make task draggable
 function makeDraggable(taskDiv, task) {
   taskDiv.draggable = true;
-
   taskDiv.addEventListener("dragstart", e => {
     e.dataTransfer.setData("text/plain", task.id);
-    e.dataTransfer.effectAllowed = "move";
     taskDiv.classList.add("dragging");
   });
-
-  taskDiv.addEventListener("dragend", () => {
-    taskDiv.classList.remove("dragging");
-  });
+  taskDiv.addEventListener("dragend", () => taskDiv.classList.remove("dragging"));
 }
 
-// Set columns as drop zones
+// Columns as drop zones
 Object.values(columns).forEach(col => {
-  col.addEventListener("dragover", e => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-    col.classList.add("drag-over");
-  });
-
+  col.addEventListener("dragover", e => { e.preventDefault(); col.classList.add("drag-over"); });
   col.addEventListener("dragleave", () => col.classList.remove("drag-over"));
-
   col.addEventListener("drop", async e => {
-    e.preventDefault();
-    col.classList.remove("drag-over");
+    e.preventDefault(); col.classList.remove("drag-over");
     const taskId = e.dataTransfer.getData("text/plain");
     const newStatus = col.dataset.status;
+
+    // Update status and notify if status changed
+    const task = currentTask; // optionally fetch from DB
     await updateTask(selectedProjectId, taskId, { status: newStatus });
   });
 });
 
-// Render tasks in real-time
+// Render tasks
 onTasksChange(selectedProjectId, tasks => {
   Object.values(columns).forEach(col => col.innerHTML = `<h3>${col.querySelector('h3').textContent}</h3>`);
-
   tasks.forEach(task => {
     const div = document.createElement("div");
     div.className = "task-card";
     div.innerHTML = `
       <h4>${task.title}</h4>
-      <p>${task.description || ''}</p>
-      <div class="task-actions">
-        <button class="btn btn-primary btn-edit">Edit</button>
-        <button class="btn btn-danger btn-delete">Delete</button>
-      </div>
+      <p><strong>Deadline:</strong> ${task.deadline || 'N/A'}</p>
+      <p><strong>Team:</strong> ${(task.assigned || []).join(", ")}</p>
     `;
-
-    // Drag functionality
     makeDraggable(div, task);
 
-    // Delete
-    div.querySelector(".btn-delete").addEventListener("click", async e => {
+    div.addEventListener("click", e => {
       e.stopPropagation();
-      if (confirm("Delete this task?")) {
-        await deleteTask(selectedProjectId, task.id);
-      }
+      currentTask = task;
+      document.getElementById("detailsTitle").value = task.title;
+      document.getElementById("detailsDescription").value = task.description || "No description";
+      document.getElementById("detailsStatus").value = task.status;
+      document.getElementById("detailsDeadline").value = task.deadline || "";
+      document.getElementById("detailsAssigned").value = (task.assigned || []).join(", ");
+      editTaskBtn.style.display = "inline-block";
+      saveTaskBtn.style.display = "none";
+      [document.getElementById("detailsTitle"), document.getElementById("detailsDescription"),
+       document.getElementById("detailsStatus"), document.getElementById("detailsDeadline"),
+       document.getElementById("detailsAssigned")].forEach(f => f.readOnly = true);
+      taskDetailsModal.style.display = "flex";
     });
 
-    // Edit
-    div.querySelector(".btn-edit").addEventListener("click", e => {
-      e.stopPropagation();
-      taskModal.style.display = "flex";
-      document.getElementById("taskTitle").value = task.title;
-      document.getElementById("taskDescription").value = task.description || "";
-      document.getElementById("taskStatus").value = task.status || "todo";
-      document.getElementById("taskAssigned").value = (task.assigned || []).join(", ");
-      taskForm.dataset.editId = task.id;
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.className = "btn btn-danger mt-2";
+    deleteBtn.addEventListener("click", async ev => {
+      ev.stopPropagation();
+      if (confirm("Delete this task?")) await deleteTask(selectedProjectId, task.id);
     });
+    div.appendChild(deleteBtn);
 
     const col = columns[task.status] || columns.todo;
     col.appendChild(div);
   });
 });
+
+// Edit in modal
+editTaskBtn.addEventListener("click", () => {
+  if (!currentTask) return;
+  [document.getElementById("detailsTitle"), document.getElementById("detailsDescription"),
+   document.getElementById("detailsStatus"), document.getElementById("detailsDeadline"),
+   document.getElementById("detailsAssigned")].forEach(f => f.readOnly = false);
+  document.getElementById("detailsStatus").disabled = false;
+  editTaskBtn.style.display = "none";
+  saveTaskBtn.style.display = "inline-block";
+});
+
+// Save changes in modal + email notification
+saveTaskBtn.addEventListener("click", async () => {
+  if (!currentTask) return;
+  const prevAssigned = currentTask.assigned || [];
+  const updatedData = {
+    title: document.getElementById("detailsTitle").value,
+    description: document.getElementById("detailsDescription").value,
+    status: document.getElementById("detailsStatus").value,
+    deadline: document.getElementById("detailsDeadline").value,
+    assigned: document.getElementById("detailsAssigned").value.split(",").map(u => u.trim()).filter(Boolean)
+  };
+  await updateTask(selectedProjectId, currentTask.id, updatedData);
+
+  // Send emails to all newly assigned users
+  updatedData.assigned.forEach(email => {
+    if (!prevAssigned.includes(email)) {
+      window.notificationAPI.emailTaskAssigned(email, updatedData);
+    }
+  });
+
+  taskDetailsModal.style.display = "none";
+});
+
 </script>
-  
 </body>
 </html>

@@ -65,13 +65,14 @@ function tasksColRef(projectId) {
 }
 
 // Add a new task
-export async function addTask(projectId, { title, description = "", status = "todo", assigned = [] }) {
+export async function addTask(projectId, { title, description = "",deadline, status = "todo", assigned = [] }) {
   if (!auth.currentUser) throw new Error("Login required");
   const taskRef = await addDoc(tasksColRef(projectId), {
     title,
     description,
     status,
     assigned,
+    deadline: deadline || "",
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
     createdBy: auth.currentUser.uid
@@ -99,3 +100,23 @@ export function onTasksChange(projectId, callback) {
     callback(tasks);
   });
 }
+
+// In js/firebase/firestore.js
+
+// Notify users about something in a project
+export async function notifyUsers(projectId, userIds, title, message) {
+  if (!auth.currentUser) throw new Error("Login required");
+
+  const notifCol = collection(db, "projects", projectId, "notifications");
+
+  for (let uid of userIds) {
+    await addDoc(notifCol, {
+      title,
+      message,
+      userIds: [uid],
+      read: false,
+      createdAt: serverTimestamp()
+    });
+  }
+}
+  
