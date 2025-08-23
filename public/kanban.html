@@ -129,7 +129,7 @@ body, html { margin:0; font-family: system-ui, sans-serif; height: 100%; display
             <option value="done">Done</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary mt-2" onclick=sendTaskAssignedMail()>Save Task</button>
+        <button type="submit" class="btn btn-primary mt-2">Save Task</button>
       </form>
     </div>
   </div>
@@ -241,6 +241,11 @@ taskForm.addEventListener("submit", async e => {
     delete taskForm.dataset.editId;
   } else {
     await addTask(selectedProjectId, taskData);
+
+    // Send email to all assigned users
+    assigned.forEach(email => {
+    window.notificationAPI.emailTaskAssigned(user.email, taskData);
+    });
   }
 
   taskModal.style.display = "none";

@@ -1,3 +1,8 @@
+emailjs.init("TU_jBfFsk5CG4vGBd"); // your public key
+
+const projectForm = document.getElementById("createProjectForm");
+projectForm.addEventListener("submit", sendProjectAssignedMail);
+
 function sendTaskAssignedMail(event){
     event.preventDefault(); // stop form reload
     let params = {
@@ -22,11 +27,10 @@ function sendProjectAssignedMail(event){
         user_name: "User",
         project_deadline: document.getElementById("projectDeadline").value
     };
-x
+
     emailjs.send("service_nh1amy6","template_7p7tkak",params)
     .then(
       res => { alert("✅ Email sent successfully!"); console.log(res); },
       err => { alert("❌ Failed to send email"); console.error(err); }
     );
 }
-

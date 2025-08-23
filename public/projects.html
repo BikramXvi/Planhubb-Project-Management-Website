@@ -265,7 +265,7 @@
             <label for="projectTeam">Team Members (comma separated emails/UIDs)</label>
             <input type="text" id="projectTeam" class="form-control" placeholder="user1@example.com, user2@example.com">
           </div>
-          <button type="submit" class="btn btn-primary mt-2" onclick=sendProjectAssignedMail()>Save Project</button>
+          <button type="submit" class="btn btn-primary mt-2">Save Project</button>
         </form>
       </div>
     </div>
@@ -278,6 +278,18 @@
       <p><a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Contact</a></p>
     </footer>
   </div>
+
+  <!-- EmailJS -->
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "TU_jBfFsk5CG4vGBd",
+      });
+   })();
+</script>
 
   <script type="module">
     import { auth } from "./js/firebase/config.js";
@@ -406,17 +418,6 @@
     });
 
   </script>
-  <!-- EmailJS -->
-  <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "TU_jBfFsk5CG4vGBd",
-      });
-   })();
-</script>
 </body>
 
 </html>
