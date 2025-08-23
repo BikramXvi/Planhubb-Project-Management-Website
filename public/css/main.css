@@ -57,7 +57,12 @@ html[data-theme="light"] {
 .card:hover {
   background: var(--elev);
 }
-
+.team-card {
+  background: #171024;
+  padding: 1rem;
+  transition: background .2s ease, box-shadow .2s ease;
+  border-radius: var(--r);
+}
 /* Text & Links */
 body,
 html {
@@ -308,9 +313,11 @@ nav a.active {
 .card:hover
 {
   background: #24163e;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
 }
-
+.team-card:hover {
+  transform: scale(1.05);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
 /* ====== Buttons ====== */
 .btn {
   display: inline-flex;
@@ -532,24 +539,72 @@ pre {
   font-size: 1.5rem;
 }
 
-#about h2, #features h2, .card h2 {
+#about h2, #features h2, .card h2, #team h2 {
   text-align: center;
   margin: 3rem 0rem;
   color: #ffffff;
   font-size: 2rem;
   font-weight: 600;
 }
-#about p, #features p, .card p {
+.grid {
+  margin-top: 4rem;
+}
+#about p, #features p, .card p, #team p {
   color: #5d99a1;
   font-size: 1.2rem;
   margin: 1rem;
-  margin-bottom: 4rem;
   font-family: "Libertinus Sans", sans-serif;
   max-width: 100%;
   text-align: center;
   line-height: 1.6;
   font-weight: 400;
 }
+.team-profile {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  position: relative;
+  row-gap: 5px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--warn);
+  border-radius: 15px 15px 0px 15px;
+}
+.overlay::before,
+.overlay::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--warn);
+}
+
+.overlay::after{
+  border-radius: 0px 25px 0 0;
+  background-color: #171024;
+}
+
+.profile-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--warn);
+  color: #0a0f0f;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 40px;
+}
+
 
 /* Footer */
     footer {
@@ -566,7 +621,6 @@ pre {
     footer a {
       color: var(--accent);
       font-weight: 100;
-    
     }
 
     footer p{

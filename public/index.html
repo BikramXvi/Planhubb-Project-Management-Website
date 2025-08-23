@@ -11,9 +11,10 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
   <style>
-    
     /* Hero Section */
     .hero {
       display: flex;
@@ -50,9 +51,10 @@
       margin-bottom: 2rem;
       font-family: "Dancing Script", cursive;
       font-optical-sizing: auto;
-      font-style:normal;
+      font-style: normal;
       text-align: left;
     }
+
     .hero button {
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
@@ -64,11 +66,13 @@
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
+
     .hero button:hover {
       background-color: var(--accent-contrast);
       color: #0a0f0f;
       box-shadow: inset 0 0 0 2px var(--accent-contrast);
     }
+
     .hero button a {
       text-decoration: none;
     }
@@ -148,8 +152,6 @@
       width: 100%;
       cursor: pointer;
     }
-
-    
   </style>
 </head>
 
@@ -178,14 +180,16 @@
 
   <!-- Hero Section -->
   <section id="hero" class="hero" style="padding: 40px;">
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; max-width: 100%; margin: auto;">
+    <div
+      style="display: flex; align-items: center; justify-content: space-between; gap: 40px; max-width: 100%; margin: auto;">
 
       <!-- Hero Text -->
       <div style="flex: 1; padding-left: 150px;">
         <h1>Manage Projects <br> <span style="color:var(--warn)">Smarter</span> with Planhubb</h1>
         <p>Track tasks, collaborate with your team, and stay organized. Planhubb makes project management simple,
           efficient, and visually appealing.</p>
-        <button class="btn" style="display: flex; align-items: left;"><a href="auth/login.html">Get Started</a> </button>
+        <button class="btn" style="display: flex; align-items: left;"><a href="auth/login.html">Get Started</a>
+        </button>
       </div>
 
       <!-- Hero Image -->
@@ -208,93 +212,118 @@
 
   <!-- main container starts -->
   <section id="main-container">
-  <!-- About Us -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>Planhubb is designed for teams who want a clean, intuitive, and dark-mode friendly project management tool. Stay
-      on top of tasks and boost productivity.</p>
-    <div class="grid block">
-      <div class="card block">
-        <h3>Vision</h3>
-        <p>Empower teams to collaborate seamlessly and manage projects efficiently.</p>
+    <!-- About Us -->
+    <section id="about">
+      <h2>About Us</h2>
+      <p class="p-texts">Planhubb is designed for teams who want a clean, intuitive, and dark-mode friendly project management tool.
+        Stay
+        on top of tasks and boost productivity.</p>
+      <div class="grid block">
+        <div class="card block">
+          <h3>Vision</h3>
+          <p>Empower teams to collaborate seamlessly and manage projects efficiently.</p>
+        </div>
+        <div class="card block">
+          <h3>Mission</h3>
+          <p>Provide a simple, yet powerful project management solution for all types of teams.</p>
+        </div>
+        <div class="card block">
+          <h3>Goal</h3>
+          <p>Make task tracking, planning, and reporting effortless in a visually pleasing interface.</p>
+        </div>
       </div>
-      <div class="card block">
-        <h3>Mission</h3>
-        <p>Provide a simple, yet powerful project management solution for all types of teams.</p>
+    </section>
+
+    <!-- Features / Services -->
+    <section id="features">
+      <h2>Features</h2>
+      <div class="grid">
+        <div class="card block">
+          <h3>Kanban Boards</h3>
+          <p>Visualize tasks and workflow stages like Planning → To Do → In Progress → Done.</p>
+        </div>
+        <div class="card block">
+          <h3>Dark Mode</h3>
+          <p>All screens are optimized for a dark mode experience with accent highlights.</p>
+        </div>
+        <div class="card block">
+          <h3>Team Collaboration</h3>
+          <p>Assign tasks, review progress, and comment in real-time with your team.</p>
+        </div>
+        <div class="card block">
+          <h3>Notifications</h3>
+          <p>Stay updated on task changes, deadlines, and project milestones.</p>
+        </div>
       </div>
-      <div class="card block">
-        <h3>Goal</h3>
-        <p>Make task tracking, planning, and reporting effortless in a visually pleasing interface.</p>
-      </div>
-    </div>
+    </section>
+
   </section>
 
-  <!-- Features / Services -->
-  <section id="features">
-    <h2>Features</h2>
+  <!--Meet The Team-->
+  <section id="team">
+    <h2>Meet The Team</h2>
+    <p class="p-texts">Our passionate team is dedicated to building tools that make project management simple, effective, and enjoyable.
+    </p>
     <div class="grid">
-      <div class="card block">
-        <h3>Kanban Boards</h3>
-        <p>Visualize tasks and workflow stages like Planning → To Do → In Progress → Done.</p>
+
+      <div class="team-card block" style="text-align:center;">
+        <div class="team-profile">
+          <span class="overlay"></span>
+          <img src="./img/teams/bikram - Copy.jpg" alt="Team Member"
+            style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover; position: relative; border: 4px solid #171024;">
+        </div>
+        <h3>Bikram Tamang</h3>
+        <p>Team Lead</p>
+        <button class="profile-btn">
+        <a href="team/bikram.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View
+          Profile</a>
+        </button>
       </div>
-      <div class="card block">
-        <h3>Dark Mode</h3>
-        <p>All screens are optimized for a dark mode experience with accent highlights.</p>
+
+      <div class="team-card block" style="text-align:center;">
+        <div class="team-profile">
+          <span class="overlay"></span>
+          <img src="./img/teams/Neha.jpg" alt="Team Member" style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover; position: relative; border: 4px solid #171024;">
+        </div>
+        <h3>Neha K.C (Khatri)</h3>
+        <p>UI/UX Designer</p>
+        <button class="profile-btn">
+        <a href="team/neha.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View
+          Profile</a>
+        </button>
       </div>
-      <div class="card block">
-        <h3>Team Collaboration</h3>
-        <p>Assign tasks, review progress, and comment in real-time with your team.</p>
+
+      <div class="team-card block" style="text-align:center;">
+        <div class="team-profile">
+          <span class="overlay"></span>
+          <img src="./img/teams/Sandeep.jpg" alt="Team Member"
+            style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover; position: relative; border: 4px solid #171024;">
+        </div>
+        <h3>Sandeep Meche</h3>
+        <p>Front-End Developer</p>
+        <button class="profile-btn">
+        <a href="team/sandeep.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View
+          Profile</a>
+        </button>
       </div>
-      <div class="card block">
-        <h3>Notifications</h3>
-        <p>Stay updated on task changes, deadlines, and project milestones.</p>
+
+      <div class="team-card block" style="text-align:center;">
+        <div class="team-profile">
+          <span class="overlay"></span>
+          <img src="./img/teams/Aditya.jpg" alt="Team Member"
+            style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover; position: relative; border: 4px solid #171024;">
+        </div>
+        <h3>Aaditya Thapaliya</h3>
+        <p>Resource Manager</p>
+        <button class="profile-btn">
+        <a href="team/aaditya.html" class="btn-outline-muted" style="margin-top: 1rem; text-decoration:none">View
+          Profile</a>
+        </button>
       </div>
+
     </div>
   </section>
-    
-</section>
-
-<!--Meet The Team-->
-<section id="team">
-  <h2>Meet The Team</h2>
-  <p>Our passionate team is dedicated to building tools that make project management simple, effective, and enjoyable.</p>
-  <div class="grid">
-
-    <div class="card block" style="text-align:center;">
-      <img src="./img/bikram - Copy.jpg" alt="Team Member"
-           style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover;">
-      <h3>Bikram Tamang</h3>
-      <p>Team Lead</p>
-      <a href="team/bikram.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View Profile</a>
-    </div>
-
-    <div class="card block" style="text-align:center;">
-      <img src="./img/Neha.jpg" alt="Team Member"
-           style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover;">
-      <h3>Neha K.C (Khatri)</h3>
-      <p>UI/UX Designer</p>
-      <a href="team/neha.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View Profile</a>
-    </div>
-
-    <div class="card block" style="text-align:center;">
-      <img src="./img/Sandeep.jpg" alt="Team Member"
-           style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover;">
-      <h3>Sandeep Meche</h3>
-      <p>Front-End Developer</p>
-      <a href="team/sandeep.html" class="btn-outline-muted" style="margin-top: 1rem;text-decoration:none">View Profile</a>
-    </div>
-
-    <div class="card block" style="text-align:center;">
-      <img src="./img/Aditya.jpg" alt="Team Member"
-           style="width:120px; height:120px; border-radius:50%; margin-bottom:1rem; object-fit:cover;">
-      <h3>Aaditya Thapaliya</h3>
-      <p>Resource Manager</p>
-      <a href="team/aaditya.html" class="btn-outline-muted" style="margin-top: 1rem; text-decoration:none">View Profile</a>
-    </div>
-
-  </div>
-</section>
-<!-- Subscribe -->
+  <!-- Subscribe -->
   <section id="subscribe">
     <h2>Subscribe for Updates</h2>
     <p>Get notified when new features are released and stay ahead with Planhubb.</p>
@@ -303,9 +332,9 @@
       <button class="btn btn-primary" type="submit">Subscribe</button>
     </form>
   </section>
-<!-- main container ends here -->
+  <!-- main container ends here -->
   <!-- Footer -->
-<!-- main container ends here -->
+  <!-- main container ends here -->
   <!-- Footer -->
   <footer>
     <p>© 2025 Planhubb. All rights reserved.</p>
