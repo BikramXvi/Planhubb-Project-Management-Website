@@ -24,6 +24,9 @@ export async function createProject({ name, description, deadline, status, team=
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   });
+    // Notify all assigned users
+  await notifyUsers(docRef.id, members, `Project Assigned: ${name}`, `You are added to the project "${name}"`);
+
   return docRef.id;
 }
 
