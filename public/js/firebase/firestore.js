@@ -80,6 +80,10 @@ export async function addTask(projectId, { title, description = "",deadline, sta
     updatedAt: serverTimestamp(),
     createdBy: auth.currentUser.uid
   });
+    // Notify assigned users
+  if (assigned.length > 0) {
+    await notifyUsers(projectId, assigned, `Task Assigned: ${title}`, `You are assigned to the task "${title}"`);
+  }
   return taskRef.id;
 }
 
